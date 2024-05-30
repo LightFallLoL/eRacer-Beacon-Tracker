@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_controller"
+    app:startDestination="@id/cursesFragment">
+
+    <fragment
+        android:id="@+id/cursesFragment"
+        android:name="org.milaifontanals.projecte.Fragments.CursesFragment"
+        android:label="Curses"
+        tools:layout="@layout/fragment_curses">
+        <action
+            android:id="@+id/action_cursesFragment_to_cursaDetailFragment"
+            app:destination="@id/cursaDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cursaDetailFragment"
+        android:name="org.milaifontanals.projecte.Fragments.CursaInFragment"
+        android:label="Cursa Detail"
+        tools:layout="@layout/fragment_in_cursa">
+        <argument
+            android:name="cursa"
+            app:argType="org.milaifontanals.projecte.Model.Cursa" />
+        <action
+            android:id="@+id/action_cursaDetailFragment_to_inscripcioFragment"
+            app:destination="@id/inscripcioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inscripcioFragment"
+        android:name="org.milaifontanals.projecte.Fragments.InscripcioFragment"
+        android:label="Cursa Inscripcio"
+        tools:layout="@layout/fragment_inscripcio">
+        <argument
+            android:name="cursa"
+            app:argType="org.milaifontanals.projecte.Model.Cursa" />
+        <argument
+            android:name="circuit"
+            app:argType="org.milaifontanals.projecte.Model.Circuit" />
+    </fragment>
+
+
+
+
+    <!-- Define otros fragmentos aquí si es necesario -->
+
+</navigation>

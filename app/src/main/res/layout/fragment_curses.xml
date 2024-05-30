@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.CursesFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#679AE6"
+        android:elevation="1dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:contentInsetStart="0dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetEnd="0dp"
+        android:contentInsetRight="0dp"/>
+
+
+
+    <ImageButton
+        android:id="@+id/btnDrawer"
+        android:layout_margin="10dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/boto_desplegable"
+        android:elevation="2dp"
+        android:background="#679AE6"
+        android:scaleType="fitCenter">
+
+    </ImageButton>
+
+
+    <EditText
+        android:id="@+id/edtBuscador"
+        android:layout_width="290dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="80dp"
+        android:background="@color/white"
+        android:elevation="10dp">
+    </EditText>
+
+    <ImageView
+        android:id="@+id/imvEsport"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="55dp"
+        android:elevation="2dp"
+        android:src="@drawable/ic_all" />
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="Data: "
+        android:elevation="2dp"
+        android:layout_marginLeft="80dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="65dp"
+        ></TextView>
+    <Spinner
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="120dp"
+        android:id="@+id/spnFiltre"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@android:color/white"
+        android:spinnerMode="dropdown"
+        android:elevation="2dp"/>
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="Estat: "
+        android:elevation="2dp"
+        android:layout_marginLeft="225dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="65dp"
+        ></TextView>
+    <Spinner
+        android:id="@+id/spnEstat"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="270dp"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@android:color/white"
+        android:elevation="3dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_marginTop="100dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rcyCurses">
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.cardview.widget.CardView>
+
+
+</FrameLayout>
