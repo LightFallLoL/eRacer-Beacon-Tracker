@@ -42,6 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CursaInFragment extends Fragment  implements CircuitAdapter.OnCircuitClickListener{
+    //Fragment que Permetra configurar el layout de Cursa Detall. (On apareixeran els circuits i les dades més profundament.
     private TextView txvTitol;
     private TextView txvDate;
     private TextView txvLocation;
@@ -57,9 +58,6 @@ public class CursaInFragment extends Fragment  implements CircuitAdapter.OnCircu
     private Circuit selectedCircuit;
 
     private Cursa cursa;
-    int indexSpinner;
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +70,6 @@ public class CursaInFragment extends Fragment  implements CircuitAdapter.OnCircu
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_in_cursa, container, false);
-
         txvTitol = view.findViewById(R.id.txvTitol);
         txvDate = view.findViewById(R.id.txvDate);
         txvLocation = view.findViewById(R.id.txvLocation);
@@ -81,7 +78,7 @@ public class CursaInFragment extends Fragment  implements CircuitAdapter.OnCircu
         spnCheckpoint = view.findViewById(R.id.spnCheckpoint);
         edtPK = view.findViewById(R.id.edtPK);
         txvTitol.setText(cursa.getNom());
-        txvDate.setText(dateFormat.format(cursa.getDataInici())); // Formatear fecha si es necesario
+        txvDate.setText(dateFormat.format(cursa.getDataInici()));
         txvLocation.setText(cursa.getLloc());
         // Configurar RecyclerView de circuits
         List<Circuit> circuits = cursa.getCircuits();
@@ -139,17 +136,18 @@ public class CursaInFragment extends Fragment  implements CircuitAdapter.OnCircu
                 if (response.isSuccessful()) {
                     allCheckpoints = response.body().getCheckpoints();
                 } else {
-                    Toast.makeText(getContext(), "Error loading checkpoints", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error cargant els checkpoints", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<CheckpointResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to load checkpoints: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Ha fallat la carga de checkpoints: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //Metode per quan es clicka a un circuit.
     @Override
     public void onCircuitClick(Circuit circuit) {
         selectedCircuit = circuit;
@@ -159,7 +157,7 @@ public class CursaInFragment extends Fragment  implements CircuitAdapter.OnCircu
         List<Checkpoint> filteredCheckpoints = filterCheckpoints(circuit.getId());
         fillCheckpointsSpinner(filteredCheckpoints);
     }
-
+//Metodes de filtratge
     private List<Checkpoint> filterCheckpoints(int circuitId) {
         List<Checkpoint> filteredCheckpoints = new ArrayList<>();
         for (Checkpoint checkpoint : allCheckpoints) {

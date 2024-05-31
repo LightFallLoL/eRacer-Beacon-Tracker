@@ -36,7 +36,6 @@ import org.milaifontanals.projecte.Model.EstatsCursa;
 import org.milaifontanals.projecte.Model.Response.CursaResponse;
 import org.milaifontanals.projecte.Model.Response.EstatCursaResponse;
 import org.milaifontanals.projecte.R;
-import org.milaifontanals.projecte.Utils.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,8 +51,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+/**
+ * Fragment que permetra configurar el layout de curses el llistat i els filtratges.
+ */
 public class CursesFragment extends Fragment {
 
+    //Declaració de variables
     private RecyclerView recyclerView;
     private CursaAdapter cursaAdapter;
     private DrawerLayout drawerLayout;
@@ -61,10 +64,10 @@ public class CursesFragment extends Fragment {
     private EditText edtBuscador;
     private Spinner spinnerFilter;
     private Spinner spinnerEstat;
-    private List<EstatsCursa> estatCursaList;
-
-
     private int sportTypeId;
+
+    List<EstatsCursa> estatCursaList = new ArrayList<>();
+    //OnCreate metode per cargar el argument del tipus d'esport i seguidament carregar tant estats de cursa com les Curses
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,13 +123,8 @@ public class CursesFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2); // Número de columnas
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        // Añadir GridItemDecoration para la separación entre items
-        int space = 10; // Espacio en píxeles entre los ítems
-        int color = getResources().getColor(android.R.color.darker_gray); // Color del espacio
-        GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration(getContext(), color, space);
-        recyclerView.addItemDecoration(itemDecoration);
 
-        // Inicializar el adaptador con la lista vacía
+        // Inicialitzar el adaptador
         cursaAdapter = new CursaAdapter(this, cursaList);
         recyclerView.setAdapter(cursaAdapter);
 
@@ -174,7 +172,7 @@ public class CursesFragment extends Fragment {
         return view;
     }
 
-
+    //Metode per carregar les curses amb el webservice i utilitzant Retrofit
     private void loadCurses() {
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
         Call<CursaResponse> call = apiService.getAllCurses();
@@ -211,9 +209,8 @@ public class CursesFragment extends Fragment {
         });
     }
 
-
+    //Filtrar curses per tipus d'esport
     private List<Cursa> filterCursesBySportType(List<Cursa> curses, int sportTypeId) {
-        // Filtrar la lista de carreras según el ID del deporte
         return curses.stream()
                 .filter(cursa -> cursa.getEsport().getId() == sportTypeId)
                 .collect(Collectors.toList());
@@ -233,7 +230,7 @@ public class CursesFragment extends Fragment {
         ImageLoader.getInstance().init(config);
     }
 
-
+    //Metode per actualitzar la icona d'esport seleccionat
     private void updateSportIcon(ImageView imageView, int sportType) {
 
         switch (sportType) {
@@ -258,7 +255,7 @@ public class CursesFragment extends Fragment {
                 break;
         }
     }
-
+    //Ordenar les curses descendent
     private void sortCursesByDateDesc(List<Cursa> curses) {
         Collections.sort(curses, new Comparator<Cursa>() {
             @Override
@@ -268,9 +265,9 @@ public class CursesFragment extends Fragment {
         });
     }
 
-
+    //Filtrar les curses per totes les variables posibles
     private void filterCurses() {
-        String query = edtBuscador.getText().toString().toLowerCase();
+        String search = edtBuscador.getText().toString().toLowerCase();
         String dateFilter = spinnerFilter.getSelectedItem().toString();
         String stateFilter = spinnerEstat.getSelectedItem().toString();
         List<Cursa> filteredCurses = new ArrayList<>();
@@ -279,9 +276,9 @@ public class CursesFragment extends Fragment {
         Date now = new Date();
 
         for (Cursa cursa : cursaList) {
-            boolean matchesQuery = query.isEmpty() ||
-                    cursa.getNom().toLowerCase().contains(query) ||
-                    cursa.getLloc().toLowerCase().contains(query);
+            boolean matchesQuery = search.isEmpty() ||
+                    cursa.getNom().toLowerCase().contains(search) ||
+                    cursa.getLloc().toLowerCase().contains(search);
             boolean matchesDateFilter = false;
             boolean matchesStateFilter = stateFilter.equals("Mostrar Tot") || cursa.getEstatCursa().getNom().equals(stateFilter);
 
@@ -321,6 +318,7 @@ public class CursesFragment extends Fragment {
         cursaAdapter.notifyDataSetChanged();
     }
 
+    //Carrega de estats de cursa amb crida al web service utilitzant RetroFit
     private void loadEstatsCursa() {
         ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
         Call<EstatCursaResponse> call = apiService.getAllEstatsCursa();
@@ -341,6 +339,8 @@ public class CursesFragment extends Fragment {
             }
         });
     }
+
+    //Filtre de les curses per el estat.
     private List<Cursa> filterCursesByState(List<Cursa> curses) {
         return curses.stream()
                 .filter(cursa -> {

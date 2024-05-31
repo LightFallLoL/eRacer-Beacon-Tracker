@@ -2,6 +2,9 @@ package org.milaifontanals.projecte.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Classe beacon (No utilitzada perque em petava)
+ */
 public class Beacon {
 
     @SerializedName("bea_id")

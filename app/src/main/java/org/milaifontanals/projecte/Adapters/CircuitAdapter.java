@@ -17,18 +17,22 @@ import java.util.List;
 import java.util.Locale;
 
 public class CircuitAdapter extends RecyclerView.Adapter<CircuitAdapter.CircuitViewHolder> {
+    //Declaracio de varaibles
     private List<Circuit> circuitList;
-
+    //Interficie per a poder despres
     private OnCircuitClickListener onCircuitClickListener;
 
+    //Interficie per a pillar el circuit.
+    public interface OnCircuitClickListener {
+        void onCircuitClick(Circuit circuit);
+    }
     private int selectedPosition = -1;
+    //Adapter
     public CircuitAdapter(List<Circuit> circuitList, OnCircuitClickListener onCircuitClickListener) {
         this.circuitList = circuitList;
         this.onCircuitClickListener = onCircuitClickListener;
     }
-    public interface OnCircuitClickListener {
-        void onCircuitClick(Circuit circuit);
-    }
+
     public List<Circuit> getCircuitList() {
         return circuitList;
     }
@@ -47,7 +51,7 @@ public class CircuitAdapter extends RecyclerView.Adapter<CircuitAdapter.CircuitV
     public void setSelectedPosition(int selectedPosition) {
         this.selectedPosition = selectedPosition;
     }
-
+    //OnCreateViewHolder
     @NonNull
     @Override
     public CircuitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,7 +64,6 @@ public class CircuitAdapter extends RecyclerView.Adapter<CircuitAdapter.CircuitV
         Circuit circuit = circuitList.get(position);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        String formattedDate = dateFormat.format(circuit.getTempsEstimat());
 
         holder.tvCircuitTitle.setText(circuit.getNom());
         holder.tvEstimatedTime.setText("ETA : "+circuit.getFormattedTempsEstimat() + "h");
@@ -69,9 +72,9 @@ public class CircuitAdapter extends RecyclerView.Adapter<CircuitAdapter.CircuitV
 
         holder.itemView.setSelected(selectedPosition == position);
         holder.itemView.setOnClickListener(v -> {
-            notifyItemChanged(selectedPosition); // Deseleccionar el anterior
+            notifyItemChanged(selectedPosition);
             selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(selectedPosition); // Seleccionar el nuevo
+            notifyItemChanged(selectedPosition);
             if (onCircuitClickListener != null) {
                 onCircuitClickListener.onCircuitClick(circuit);
             }

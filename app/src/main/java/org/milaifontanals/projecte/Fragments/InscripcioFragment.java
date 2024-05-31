@@ -29,7 +29,6 @@ import java.util.List;
 
 public class InscripcioFragment extends Fragment {
 
-    private FlexboxLayout flexboxLayout;
     private Spinner spnCategoria;
     private List<Categoria> categoriesList;
     private TextView txvTitol;
@@ -63,7 +62,6 @@ public class InscripcioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_inscripcio, container, false);
 
         spnCategoria = view.findViewById(R.id.spnCategoria);
-        flexboxLayout = view.findViewById(R.id.flexboxLayout);
         etNumF = view.findViewById(R.id.etNumF);
         radioGroup = view.findViewById(R.id.rgFederat);
         radioButtonSi = view.findViewById(R.id.rbSi);
@@ -96,7 +94,6 @@ public class InscripcioFragment extends Fragment {
                 String categoriaSeleccionada = adapterView.getItemAtPosition(i).toString();
                 if (!categoriesSeleccionades.contains(categoriaSeleccionada)) {
                     categoriesSeleccionades.add(categoriaSeleccionada);
-                    addCategoryChip(categoriaSeleccionada);
                 }
             }
 
@@ -109,18 +106,5 @@ public class InscripcioFragment extends Fragment {
         return view;
     }
 
-    private void addCategoryChip(String category) {
-        final TextView chip = new TextView(getContext());
-        chip.setText(category);
-        chip.setPadding(8, 8, 8, 8);
-        chip.setBackgroundResource(R.drawable.chip_background);
-        chip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                flexboxLayout.removeView(chip);
-                categoriesSeleccionades.remove(category);
-            }
-        });
-        flexboxLayout.addView(chip);
-    }
+
 }

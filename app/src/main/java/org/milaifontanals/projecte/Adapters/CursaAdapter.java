@@ -31,6 +31,7 @@ import org.milaifontanals.projecte.Model.Cursa;
 import org.milaifontanals.projecte.R;
 
 public class CursaAdapter extends RecyclerView.Adapter<CursaAdapter.CursaViewHolder> {
+    //Adapter per el llistat de la cursa.
 
     private Fragment context;
     private List<Cursa> cursaList;
@@ -40,7 +41,7 @@ public class CursaAdapter extends RecyclerView.Adapter<CursaAdapter.CursaViewHol
     public List<Cursa> getCursaList() {
         return cursaList;
     }
-
+    //SetCursaList amb notifyDataSetChanged per detectar els canvis
     public void setCursaList(List<Cursa> cursaList) {
 
         if (cursaList != null) {
@@ -93,12 +94,10 @@ public class CursaAdapter extends RecyclerView.Adapter<CursaAdapter.CursaViewHol
                 public void onLoadingStarted(String imageUri, View view) {
 
                 }
-
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
 
                 }
-
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     cursaActual.setBitmap(loadedImage);
@@ -111,7 +110,7 @@ public class CursaAdapter extends RecyclerView.Adapter<CursaAdapter.CursaViewHol
                 }
             });
         }
-        holder.clyItem.setOnClickListener(v -> {
+            holder.clyItem.setOnClickListener(v -> {
             NavController navController = NavHostFragment.findNavController(context);
             Bundle bundle = new Bundle();
             bundle.putSerializable("cursa", cursaActual);

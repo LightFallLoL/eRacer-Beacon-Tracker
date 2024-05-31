@@ -3,7 +3,9 @@ package org.milaifontanals.projecte.Model.Response;
 import org.milaifontanals.projecte.Model.Cursa;
 
 import java.util.List;
-
+/**
+ * Les responses les he utilitzat per pillar desde la api. Ho vaig veure en una recomenacio.
+ */
 public class CursaResponse {
     private List<Cursa> curses;
 
