@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:background="#679AE6"
         android:elevation="1dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
@@ -37,7 +37,7 @@
 
     <EditText
         android:id="@+id/edtBuscador"
-        android:layout_width="290dp"
+        android:layout_width="700dp"
         android:layout_height="30dp"
         android:layout_marginTop="18dp"
         android:layout_marginLeft="80dp"
@@ -93,12 +93,12 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" android:layout_marginTop="100dp">
+        android:layout_height="match_parent" android:layout_marginTop="150dp">
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcyCurses"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rcyCurses">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
     </androidx.cardview.widget.CardView>
 
 

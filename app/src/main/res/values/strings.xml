@@ -18,7 +18,5 @@
     </string-array>
     <string-array name="state_filters">
         <item>Mostrar Tot</item>
-        <item>Inscripció Oberta</item>
-        <item>Finalitzada</item>
     </string-array>
 </resources>

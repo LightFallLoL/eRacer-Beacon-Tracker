@@ -19,12 +19,16 @@ import java.util.Locale;
 public class CircuitAdapter extends RecyclerView.Adapter<CircuitAdapter.CircuitViewHolder> {
     private List<Circuit> circuitList;
 
+    private OnCircuitClickListener onCircuitClickListener;
 
     private int selectedPosition = -1;
-    public CircuitAdapter(List<Circuit> circuitList) {
+    public CircuitAdapter(List<Circuit> circuitList, OnCircuitClickListener onCircuitClickListener) {
         this.circuitList = circuitList;
+        this.onCircuitClickListener = onCircuitClickListener;
     }
-
+    public interface OnCircuitClickListener {
+        void onCircuitClick(Circuit circuit);
+    }
     public List<Circuit> getCircuitList() {
         return circuitList;
     }
@@ -61,7 +65,6 @@ public class CircuitAdapter extends RecyclerView.Adapter<CircuitAdapter.CircuitV
         holder.tvCircuitTitle.setText(circuit.getNom());
         holder.tvEstimatedTime.setText("ETA : "+circuit.getFormattedTempsEstimat() + "h");
         holder.tvDistance.setText(String.format(Locale.getDefault(), "%.2f Km", circuit.getDistancia()));
-        holder.tvCircuitPrice.setText(String.format(Locale.getDefault(), "%.2f€", circuit.getPreu()));
 
 
         holder.itemView.setSelected(selectedPosition == position);
@@ -69,6 +72,9 @@ public class CircuitAdapter extends RecyclerView.Adapter<CircuitAdapter.CircuitV
             notifyItemChanged(selectedPosition); // Deseleccionar el anterior
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(selectedPosition); // Seleccionar el nuevo
+            if (onCircuitClickListener != null) {
+                onCircuitClickListener.onCircuitClick(circuit);
+            }
         });
     }
 

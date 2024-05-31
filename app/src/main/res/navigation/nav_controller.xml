@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_cursaDetailFragment_to_inscripcioFragment"
             app:destination="@id/inscripcioFragment" />
+        <action
+            android:id="@+id/action_cursaDetailFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/inscripcioFragment"
@@ -38,6 +41,20 @@
         <argument
             android:name="circuit"
             app:argType="org.milaifontanals.projecte.Model.Circuit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="org.milaifontanals.projecte.Fragments.CheckpointFragment"
+        android:label="Cursa Inscripcio"
+        tools:layout="@layout/fragment_scanner">
+        <argument
+            android:name="cursa"
+            app:argType="org.milaifontanals.projecte.Model.Cursa" />
+        <argument
+            android:name="circuit"
+            app:argType="org.milaifontanals.projecte.Model.Circuit" />
+
     </fragment>
 
 
